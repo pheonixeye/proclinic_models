@@ -1,14 +1,14 @@
 name: proclinic_models
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: extracted proclinic models library.
+version: 0.0.1
+repository: https://github.com/pheonixeye/proclinic_models.git
 
 environment:
   sdk: ^3.2.0
 
-# Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
+  equatable: ^2.0.5
+  mongo_dart:
 
 dev_dependencies:
   lints: ^3.0.0
