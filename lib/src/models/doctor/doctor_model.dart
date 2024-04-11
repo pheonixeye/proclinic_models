@@ -7,13 +7,14 @@ import 'package:proclinic_models/src/models/doctor/affiliate/affiliate_model.dar
 import 'package:proclinic_models/src/models/doctor/clinic_details/clinic_details_model.dart';
 import 'package:proclinic_models/src/models/doctor/procedure/procedure_model.dart';
 import 'package:proclinic_models/src/models/doctor/title/title_model.dart';
+import 'package:proclinic_models/src/models/speciality/speciality.dart';
+import 'package:proclinic_models/src/models/translatable/translatable.dart';
 
 class Doctor extends Equatable {
   final int id;
   final String docnameEN;
   final String docnameAR;
-  final String clinicEN;
-  final String clinicAR;
+  final Speciality speciality;
   final String phonePER;
   final String phoneASS;
   final String? password;
@@ -33,8 +34,7 @@ class Doctor extends Equatable {
     required this.id,
     required this.docnameEN,
     required this.docnameAR,
-    required this.clinicEN,
-    required this.clinicAR,
+    required this.speciality,
     required this.phonePER,
     required this.phoneASS,
     this.password,
@@ -55,8 +55,7 @@ class Doctor extends Equatable {
     int? id,
     String? docnameEN,
     String? docnameAR,
-    String? clinicEN,
-    String? clinicAR,
+    Speciality? speciality,
     String? phonePER,
     String? phoneASS,
     String? password,
@@ -76,8 +75,7 @@ class Doctor extends Equatable {
       id: id ?? this.id,
       docnameEN: docnameEN ?? this.docnameEN,
       docnameAR: docnameAR ?? this.docnameAR,
-      clinicEN: clinicEN ?? this.clinicEN,
-      clinicAR: clinicAR ?? this.clinicAR,
+      speciality: speciality ?? this.speciality,
       phonePER: phonePER ?? this.phonePER,
       phoneASS: phoneASS ?? this.phoneASS,
       password: password ?? this.password,
@@ -100,8 +98,7 @@ class Doctor extends Equatable {
       '_id': id,
       'docnameEN': docnameEN,
       'docnameAR': docnameAR,
-      'clinicEN': clinicEN,
-      'clinicAR': clinicAR,
+      'speciality': speciality.toJson(),
       'phonePER': phonePER,
       'phoneASS': phoneASS,
       'password': password,
@@ -119,43 +116,43 @@ class Doctor extends Equatable {
     };
   }
 
-  factory Doctor.fromMap(Map<String, dynamic> map) {
+  factory Doctor.fromJson(Map<String, dynamic> map) {
     return Doctor(
       id: map['_id'] as int,
       docnameEN: map['docnameEN'] as String,
       docnameAR: map['docnameAR'] as String,
-      clinicEN: map['clinicEN'] as String,
-      clinicAR: map['clinicAR'] as String,
+      speciality:
+          Speciality.fromJson(map['speciality'] as Map<String, dynamic>),
       phonePER: map['phonePER'] as String,
       phoneASS: map['phoneASS'] as String,
       password: map['password'] != null ? map['password'] as String : null,
       avatar: map['avatar'] != null ? map['avatar'] as String : null,
       grid: map['grid'] as bool,
       procedures: List<Procedure>.from(
-        (map['procedures'] as List<int>).map<Procedure>(
+        (map['procedures'] as List<dynamic>).map<Procedure>(
           (x) => Procedure.fromJson(x as Map<String, dynamic>),
         ),
       ),
       titles: List<Title>.from(
-        (map['titles'] as List<int>).map<Title>(
+        (map['titles'] as List<dynamic>).map<Title>(
           (x) => Title.fromJson(x as Map<String, dynamic>),
         ),
       ),
       affiliates: List<Affiliate>.from(
-        (map['affiliates'] as List<int>).map<Affiliate>(
+        (map['affiliates'] as List<dynamic>).map<Affiliate>(
           (x) => Affiliate.fromJson(x as Map<String, dynamic>),
         ),
       ),
       clinicDetails: List<ClinicDetails>.from(
-        (map['clinicDetails'] as List<int>).map<ClinicDetails>(
+        (map['clinicDetails'] as List<dynamic>).map<ClinicDetails>(
           (x) => ClinicDetails.fromJson(x as Map<String, dynamic>),
         ),
       ),
-      labs: List<String>.from((map['labs'] as List<String>)),
-      rads: List<String>.from((map['rads'] as List<String>)),
-      drugs: List<String>.from((map['drugs'] as List<String>)),
+      labs: List<String>.from((map['labs'] as List<dynamic>)),
+      rads: List<String>.from((map['rads'] as List<dynamic>)),
+      drugs: List<String>.from((map['drugs'] as List<dynamic>)),
       published: map['published'] as bool,
-      fields: List<String>.from((map['fields'] as List<String>)),
+      fields: List<String>.from((map['fields'] as List<dynamic>)),
     );
   }
 
@@ -168,8 +165,7 @@ class Doctor extends Equatable {
       id,
       docnameEN,
       docnameAR,
-      clinicEN,
-      clinicAR,
+      speciality,
       phonePER,
       phoneASS,
       password,
@@ -186,4 +182,59 @@ class Doctor extends Equatable {
       fields,
     ];
   }
+
+  factory Doctor.forCreate({
+    required int id,
+    required String docnameEN,
+    required String docnameAR,
+    required Speciality speciality,
+    required String phonePER,
+    required String phoneASS,
+  }) {
+    return Doctor(
+      id: id,
+      docnameEN: docnameEN,
+      docnameAR: docnameAR,
+      speciality: speciality,
+      phonePER: phonePER,
+      phoneASS: phoneASS,
+      grid: true,
+      procedures: [],
+      titles: [],
+      affiliates: [],
+      clinicDetails: [],
+      labs: [],
+      rads: [],
+      drugs: [],
+      published: true,
+      fields: [],
+    );
+  }
+
+  static const Map<String, Tr> forCreationPage = {
+    "_id": Tr(
+      a: "رقم النقابة",
+      e: "Syndicate Id",
+    ),
+    "docnameEN": Tr(
+      a: 'الاسم بالانجليزي',
+      e: 'English Name',
+    ),
+    "docnameAR": Tr(
+      a: 'الاسم بالعربي',
+      e: 'Arabic Name',
+    ),
+    "phonePER": Tr(
+      a: 'الرقم الشخصي',
+      e: 'Personal Phone',
+    ),
+    "phoneASS": Tr(
+      a: 'رقم السكيرتارية',
+      e: 'Assistant Phone',
+    ),
+    "speciality": Tr(
+      a: 'التخصص',
+      e: 'Speciality',
+    ),
+  };
 }

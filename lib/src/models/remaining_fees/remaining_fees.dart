@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/src/models/visit/visitModel.dart';
+import 'package:proclinic_models/src/utils/format_time.dart';
 import 'package:proclinic_models/src/utils/object_id.dart';
 
 class RemainingFees extends Equatable {
@@ -44,15 +45,15 @@ class RemainingFees extends Equatable {
   @override
   List<Object> get props => [id, visitsThatHasRemaining];
 
-  // @override
-  // String toString() {
-  //   return visitsThatHasRemaining.entries
-  //       .map((e) {
-  //         return "${e.value.ptName} - ${formatDateWithoutTime(e.value.visitDate)} - ${e.value.remaining} ${'L.E.'.tr()}";
-  //       })
-  //       .toList()
-  //       .join("\n");
-  // }
+  @override
+  String toString() {
+    return visitsThatHasRemaining.entries
+        .map((e) {
+          return "${e.value.ptName} - ${formatDateWithoutTime(e.value.visitDate)} ==>> ${e.value.remaining}";
+        })
+        .toList()
+        .join("\n");
+  }
 
   // String toArabicString() {}
 }

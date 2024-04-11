@@ -25,4 +25,6 @@ export 'src/models/translatable/translatable.dart';
 export 'src/models/visit/visitModel.dart';
 export 'src/models/visit_data/visit_data.dart';
 export 'src/models/visit_supply_item/visit_supply_item.dart';
+export 'src/models/speciality/speciality.dart';
+export 'src/models/app_notification/app_notification_model.dart';
 export 'src/utils/object_id.dart';

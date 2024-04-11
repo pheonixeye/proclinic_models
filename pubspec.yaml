@@ -8,7 +8,9 @@ environment:
 
 dependencies:
   equatable: ^2.0.5
+  hive: ^2.2.3
   mongo_dart:
+  uuid: ^4.4.0
 
 dev_dependencies:
   lints: ^3.0.0
