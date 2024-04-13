@@ -65,4 +65,18 @@ class Procedure extends Equatable {
       isAvailable,
     ];
   }
+
+  factory Procedure.create({
+    required String nameEn,
+    required String nameAr,
+    required double price,
+  }) {
+    return Procedure(
+      id: ObjectId(),
+      nameEn: nameEn,
+      nameAr: nameAr,
+      price: price,
+      isAvailable: true,
+    );
+  }
 }

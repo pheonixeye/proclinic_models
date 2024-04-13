@@ -48,4 +48,15 @@ class Title extends Equatable {
 
   @override
   List<Object> get props => [id, titleEn, titleAr];
+
+  factory Title.create({
+    required String titleEn,
+    required String titleAr,
+  }) {
+    return Title(
+      id: ObjectId(),
+      titleEn: titleEn,
+      titleAr: titleAr,
+    );
+  }
 }

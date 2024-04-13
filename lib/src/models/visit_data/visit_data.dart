@@ -2,9 +2,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:equatable/equatable.dart';
-import 'package:mongo_dart/mongo_dart.dart';
-import 'package:proclinic_models/src/models/drug/drug_model.dart';
-import 'package:proclinic_models/src/models/visit/visitModel.dart';
+import 'package:proclinic_models/proclinic_models.dart';
 
 class VisitData extends Equatable {
   final int docid;
@@ -13,10 +11,10 @@ class VisitData extends Equatable {
   final String phone;
   final String visittype;
   final String visitdate;
-  final Map<String, String> data;
+  final Map<String, String?> data;
   final List<String> labs;
   final List<String> rads;
-  final List<Drug> drugs;
+  final List<PrescribedDrug> drugs;
   final List<String> sheetpapers;
   final List<String> labpapers;
   final List<String> radpapers;
@@ -53,7 +51,7 @@ class VisitData extends Equatable {
       labs: stringifyList(json[SxVD.LABS]),
       rads: stringifyList(json[SxVD.RADS]),
       drugs: (json[SxVD.DRUGS] as List<dynamic>)
-          .map((e) => Drug.fromJson(e))
+          .map((e) => PrescribedDrug.fromJson(e))
           .toList(),
       sheetpapers: stringifyList(json[SxVD.SHEETSPAPERS]),
       labpapers: stringifyList(json[SxVD.LABSPAPERS]),

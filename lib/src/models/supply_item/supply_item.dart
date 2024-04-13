@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart' show ObjectId;
 import 'package:proclinic_models/src/models/translatable/translatable.dart';
+import 'package:proclinic_models/src/models/visit_supply_item/visit_supply_item.dart';
 
 class SupplyItem extends Equatable {
   final ObjectId id;
@@ -166,4 +167,14 @@ class SupplyItem extends Equatable {
     'notifyAmount': const Tr(a: "كمية التنبيه", e: "Notify At Amount"),
     'docid': const Tr(a: "خاص بعيادة", e: "For Doctor"),
   };
+
+  VisitSupplyItem toVisitSupplyItem() {
+    return VisitSupplyItem(
+      id: id,
+      nameEn: nameEn,
+      nameAr: nameAr,
+      amount: 1.0,
+      price: price,
+    );
+  }
 }

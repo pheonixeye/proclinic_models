@@ -48,4 +48,15 @@ class Affiliate extends Equatable {
 
   @override
   List<Object> get props => [id, affiliateEn, affiliateAr];
+
+  factory Affiliate.create({
+    required String affiliateEn,
+    required String affiliateAr,
+  }) {
+    return Affiliate(
+      id: ObjectId(),
+      affiliateEn: affiliateEn,
+      affiliateAr: affiliateAr,
+    );
+  }
 }

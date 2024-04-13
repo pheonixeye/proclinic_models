@@ -48,4 +48,13 @@ class ClinicDetails extends Equatable {
 
   @override
   List<Object> get props => [id, detailEn, detailAr];
+
+  factory ClinicDetails.create(
+      {required String detailEn, required String detailAr}) {
+    return ClinicDetails(
+      id: ObjectId(),
+      detailEn: detailEn,
+      detailAr: detailAr,
+    );
+  }
 }
