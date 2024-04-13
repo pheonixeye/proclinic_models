@@ -37,7 +37,7 @@ class Affiliate extends Equatable {
 
   factory Affiliate.fromJson(Map<String, dynamic> map) {
     return Affiliate(
-      id: (map['id'] as ObjectId),
+      id: (map['_id'] as ObjectId),
       affiliateEn: map['affiliateEn'] as String,
       affiliateAr: map['affiliateAr'] as String,
     );
