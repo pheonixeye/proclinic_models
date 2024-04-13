@@ -59,4 +59,14 @@ class Affiliate extends Equatable {
       affiliateAr: affiliateAr,
     );
   }
+
+  static const String _noAffiliate = '_noAffiliate';
+
+  factory Affiliate.noAffiliate() {
+    return Affiliate(
+      id: ObjectId.fromHexString(_noAffiliate),
+      affiliateEn: 'No Affiliate',
+      affiliateAr: 'لا يوجد جهة',
+    );
+  }
 }

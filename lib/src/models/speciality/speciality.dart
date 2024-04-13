@@ -57,4 +57,14 @@ class Speciality extends Equatable {
       nameAr: nameAr,
     );
   }
+
+  static const String _noSpeciality = 'noSpeciality';
+
+  factory Speciality.noSpeciality() {
+    return Speciality(
+      id: ObjectId.fromHexString(_noSpeciality),
+      nameEn: "No Speciality",
+      nameAr: 'لا يوجد تخصص',
+    );
+  }
 }

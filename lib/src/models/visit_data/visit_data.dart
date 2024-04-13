@@ -11,7 +11,7 @@ class VisitData extends Equatable {
   final String phone;
   final String visittype;
   final String visitdate;
-  final Map<String, String?> data;
+  final Map<String, dynamic> data;
   final List<String> labs;
   final List<String> rads;
   final List<PrescribedDrug> drugs;
@@ -47,7 +47,7 @@ class VisitData extends Equatable {
       phone: json[SxVD.PHONE],
       visittype: json[SxVD.VISITTYPE],
       visitdate: json[SxVD.VISITDATE],
-      data: json[SxVD.DATA],
+      data: json[SxVD.DATA] as Map<String, dynamic>,
       labs: stringifyList(json[SxVD.LABS]),
       rads: stringifyList(json[SxVD.RADS]),
       drugs: (json[SxVD.DRUGS] as List<dynamic>)
