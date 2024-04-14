@@ -127,6 +127,7 @@ class Contract extends Equatable {
       doctorPercentage,
       patientPaymentPercent,
       contractPricePerVisit,
+      isActive,
     ];
   }
 
@@ -158,6 +159,26 @@ class Contract extends Equatable {
 
   Contract contractFromAmount(double amount) {
     return Contract.noContract(amount);
+  }
+
+  String forBookKeeping(bool isEnglish) {
+    if (isEnglish) {
+      return """
+      Name : $nameEn
+      Payment : ${payment.translate(isEnglish)}
+      Doctor Percent % : $doctorPercentage
+      Patient Payment Percent % : $patientPaymentPercent
+      Price Per Visit : $contractPricePerVisit
+      """;
+    } else {
+      return """
+      العقد : $nameAr
+      الدفع : ${payment.translate(isEnglish)}
+      نسبة الدكتور % : $doctorPercentage
+      نسبة دفع المريض % : $patientPaymentPercent
+      ثمن الزيارة : $contractPricePerVisit
+      """;
+    }
   }
 
   static final Map<String, Tr> forWidgets = {

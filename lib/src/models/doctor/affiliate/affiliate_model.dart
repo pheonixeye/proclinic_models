@@ -61,10 +61,12 @@ class Affiliate extends Equatable {
   }
 
   static const String _noAffiliate = '_noAffiliate';
+  static String get _nc =>
+      _noAffiliate.codeUnits.map((e) => e.toRadixString(16)).toList().join();
 
   factory Affiliate.noAffiliate() {
     return Affiliate(
-      id: ObjectId.fromHexString(_noAffiliate),
+      id: ObjectId.fromHexString(_nc),
       affiliateEn: 'No Affiliate',
       affiliateAr: 'لا يوجد جهة',
     );

@@ -79,4 +79,19 @@ class Procedure extends Equatable {
       isAvailable: true,
     );
   }
+
+  String forBookkeepingAnalysis(bool isEnglish) {
+    if (isEnglish) {
+      return "$nameEn\n$price";
+    } else {
+      return "$nameAr\n$price";
+    }
+  }
+
+  static String formatListForBookkeeping(List<Procedure> data, bool isEnglish) {
+    return data
+        .map((e) => e.forBookkeepingAnalysis(isEnglish))
+        .toList()
+        .join('\n');
+  }
 }

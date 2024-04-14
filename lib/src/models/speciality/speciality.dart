@@ -59,10 +59,12 @@ class Speciality extends Equatable {
   }
 
   static const String _noSpeciality = 'noSpeciality';
+  static String get _nc =>
+      _noSpeciality.codeUnits.map((e) => e.toRadixString(16)).toList().join();
 
   factory Speciality.noSpeciality() {
     return Speciality(
-      id: ObjectId.fromHexString(_noSpeciality),
+      id: ObjectId.fromHexString(_nc),
       nameEn: "No Speciality",
       nameAr: 'لا يوجد تخصص',
     );
