@@ -193,7 +193,10 @@ class KeepingAnalysisData extends Equatable {
         ${contractsAnalysis.entries.map((e) => "${e.key} = ${e.value}").toList().join(_reportSpacer)}    
       
       Supplies Analysis :
-        $suppliesAnalysis
+        Items : 
+        ${suppliesAnalysis['counts']!.entries.map((e) => "  ${e.key} = ${e.value}").toList().join(_reportSpacer)}
+        Cost : 
+        ${suppliesAnalysis['prices']!.entries.map((e) => "  ${e.key} = ${e.value}").toList().join(_reportSpacer)}
 
       Total Incomne : 
         $totalIncome L.E.
