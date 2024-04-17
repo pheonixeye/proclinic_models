@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:proclinic_models/src/models/cron/task_type.dart';
 import 'package:proclinic_models/src/models/organizer_appointment/organizer_appointment.dart';
 import 'package:proclinic_models/src/models/remaining_fees/remaining_fees.dart';
+import 'package:proclinic_models/src/models/socket_message/socket_message.dart';
 import 'package:proclinic_models/src/models/supply_item/supply_item.dart';
 import 'package:uuid/uuid.dart';
 
@@ -24,6 +25,8 @@ class AppNotification extends HiveObject with EquatableMixin {
   final String descriptionAr;
   @HiveField(6)
   final bool isRead;
+  @HiveField(7)
+  final String dateTime;
 
   AppNotification({
     required this.id,
@@ -32,6 +35,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     required this.descriptionEn,
     required this.descriptionAr,
     required this.isRead,
+    required this.dateTime,
   });
 
   AppNotification copyWith({
@@ -41,6 +45,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     String? descriptionEn,
     String? descriptionAr,
     bool? isRead,
+    String? dateTime,
   }) {
     return AppNotification(
       id: id ?? this.id,
@@ -49,6 +54,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionEn: descriptionEn ?? this.descriptionEn,
       descriptionAr: descriptionAr ?? this.descriptionAr,
       isRead: isRead ?? this.isRead,
+      dateTime: dateTime ?? this.dateTime,
     );
   }
 
@@ -60,6 +66,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       'descriptionEn': descriptionEn,
       'descriptionAr': descriptionAr,
       'isRead': isRead,
+      'dateTime': dateTime,
     };
   }
 
@@ -73,6 +80,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionAr:
           'يتم الحرة حاملات الأمريكي ثم. وقرى الأمم حاملات أخذ لم. أم ولم أهّل بلاده, عل ومن وقبل ألمّ. بتطويق والنرويج لبولندا، لم جعل, وقام الأسيوي عل بها. مع إبّان والفلبين باستحداث يبق, في دار أوروبا مقاومة المتحدة.',
       isRead: false,
+      dateTime: DateTime.now().toIso8601String(),
     );
   }
 
@@ -84,6 +92,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionEn: map['descriptionEn'] as String,
       descriptionAr: map['descriptionAr'] as String,
       isRead: map['isRead'] as bool,
+      dateTime: map["dateTime"] as String,
     );
   }
 
@@ -99,6 +108,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionEn,
       descriptionAr,
       isRead,
+      dateTime,
     ];
   }
 
@@ -115,6 +125,7 @@ class AppNotification extends HiveObject with EquatableMixin {
           descriptionAr:
               'باقي ساعة علي موعد ${app.ptname} مع دكتور ${app.docnameAR} - الموبايل : ${app.phone}',
           isRead: false,
+          dateTime: DateTime.now().toIso8601String(),
         );
       case TaskType.suppliesCount:
         final SupplyItem item = data as SupplyItem;
@@ -127,6 +138,7 @@ class AppNotification extends HiveObject with EquatableMixin {
           descriptionAr:
               'باقي في المخزن الخاص ب${item.nameAr} عدد ${item.amount} فقط.',
           isRead: false,
+          dateTime: DateTime.now().toIso8601String(),
         );
       case TaskType.remainingFees:
         //todo: scheduled to run once the app opens
@@ -139,9 +151,23 @@ class AppNotification extends HiveObject with EquatableMixin {
           descriptionEn: _data.toString(),
           descriptionAr: _data.toString(),
           isRead: false,
+          dateTime: DateTime.now().toIso8601String(),
         );
       case TaskType.others:
         return throw UnimplementedError();
     }
+  }
+
+  factory AppNotification.fromSocketNotificationMessage(
+      SocketNotificationMessage message) {
+    return AppNotification(
+      id: message.id,
+      titleEn: message.titleEn,
+      titleAr: message.titleAr,
+      descriptionEn: message.descriptionEn,
+      descriptionAr: message.descriptionAr,
+      isRead: false,
+      dateTime: DateTime.now().toIso8601String(),
+    );
   }
 }

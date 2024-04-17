@@ -28,4 +28,5 @@ export 'src/models/visit_supply_item/visit_supply_item.dart';
 export 'src/models/speciality/speciality.dart';
 export 'src/models/app_notification/app_notification_model.dart';
 export 'src/models/bookkeeping_analysis/keeping_analysis.dart';
+export 'src/models/socket_message/socket_message.dart';
 export 'src/utils/object_id.dart';
