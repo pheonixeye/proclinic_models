@@ -115,7 +115,7 @@ class SocketNotificationMessage extends Equatable {
     return SocketNotificationMessage(
       id: const Uuid().v4(),
       direction: MessageDirection.doctorToReception,
-      type: MessageType.doctorLogin,
+      type: MessageType.doctorLogout,
       titleEn: "Dr. ${tr.e} Clinic.",
       titleAr: "عيادة دكتور ${tr.a}",
       descriptionEn: "Doctor ${tr.e} has logged Out.",
@@ -133,6 +133,82 @@ class SocketNotificationMessage extends Equatable {
       titleAr: "عيادة دكتور ${tr.a}",
       descriptionEn: "The Reception Has Added a New Visit.",
       descriptionAr: "تم اضافة زيارة جديدة",
+      docid: docid,
+    );
+  }
+
+  factory SocketNotificationMessage.visitUpdatedreception(int docid, Tr tr) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.receptionToDoctor,
+      type: MessageType.visitUpdatedreception,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "The Reception Has Updated a Visit.",
+      descriptionAr: "تم تعديل بيانات زيارة بواسطة السكيرتارية",
+      docid: docid,
+    );
+  }
+
+  factory SocketNotificationMessage.visitUpdatedDoctor(int docid, Tr tr) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.doctorToReception,
+      type: MessageType.visitUpdatedDoctor,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "Dr. ${tr.e} has updated visit details.",
+      descriptionAr: "تم تعديل بيانات زيارة بواسطة دكتور ${tr.a}",
+      docid: docid,
+    );
+  }
+
+  factory SocketNotificationMessage.pauseClinic(int docid, Tr tr) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.doctorToReception,
+      type: MessageType.pauseClinic,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "Dr. ${tr.e} Requests a Clinic Pause.",
+      descriptionAr: "يرغب دكتور ${tr.a} بايقاف العيادة",
+      docid: docid,
+    );
+  }
+
+  factory SocketNotificationMessage.resumeClinic(int docid, Tr tr) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.doctorToReception,
+      type: MessageType.resumeClinic,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "Dr. ${tr.e} Requests a Clinic Resume.",
+      descriptionAr: "يرغب دكتور ${tr.a} باستمرار العيادة",
+      docid: docid,
+    );
+  }
+  factory SocketNotificationMessage.callSecretary(int docid, Tr tr) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.doctorToReception,
+      type: MessageType.callSecretary,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "Dr. ${tr.e} Requested the presence of the assisstant.",
+      descriptionAr: "يرغب دكتور ${tr.a} بحضور المساعد",
+      docid: docid,
+    );
+  }
+  factory SocketNotificationMessage.callNextVisit(int docid, Tr tr) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.doctorToReception,
+      type: MessageType.callNextVisit,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "Dr. ${tr.e} Requests the Next Visit.",
+      descriptionAr: "يرغب دكتور ${tr.a} بحضور الزيارة التالية",
       docid: docid,
     );
   }
