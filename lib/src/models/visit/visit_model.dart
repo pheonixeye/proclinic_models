@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// ignore_for_file: constant_identifier_names, file_names, avoid_print
-
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/src/models/contracts/contract_model.dart';
 import 'package:proclinic_models/src/models/doctor/affiliate/affiliate_model.dart';
@@ -52,7 +49,7 @@ class Visit extends Equatable {
     required this.ptInsuranceNumber,
   }) : id = id ?? ObjectId();
 
-  factory Visit.fromJson(dynamic json) {
+  factory Visit.fromJson(Map<String, dynamic> json) {
     return Visit(
       id: json[SxVisit.ID] as ObjectId,
       ptId: json[SxVisit.PTID] as ObjectId,
@@ -186,7 +183,7 @@ class Visit extends Equatable {
       speciality: Speciality.noSpeciality(),
       phone: '',
       visitType: '',
-      procedures: [],
+      procedures: const [],
       visitDate: '',
       dob: '',
       cashType: '',

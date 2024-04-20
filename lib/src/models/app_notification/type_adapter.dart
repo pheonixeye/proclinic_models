@@ -14,6 +14,7 @@ class AppNotificationAdapter extends TypeAdapter<AppNotification> {
       descriptionAr: reader.read(),
       isRead: reader.read(),
       dateTime: reader.read(),
+      visitid: reader.read(),
     );
   }
 
@@ -26,6 +27,7 @@ class AppNotificationAdapter extends TypeAdapter<AppNotification> {
       ..write(obj.descriptionEn)
       ..write(obj.descriptionAr)
       ..write(obj.isRead)
-      ..write(obj.dateTime);
+      ..write(obj.dateTime)
+      ..write(obj.visitid);
   }
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:proclinic_models/src/models/cron/task_type.dart';
@@ -27,6 +29,8 @@ class AppNotification extends HiveObject with EquatableMixin {
   final bool isRead;
   @HiveField(7)
   final String dateTime;
+  @HiveField(8)
+  final String? visitid;
 
   AppNotification({
     required this.id,
@@ -36,6 +40,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     required this.descriptionAr,
     required this.isRead,
     required this.dateTime,
+    this.visitid,
   });
 
   AppNotification copyWith({
@@ -46,6 +51,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     String? descriptionAr,
     bool? isRead,
     String? dateTime,
+    String? visitid,
   }) {
     return AppNotification(
       id: id ?? this.id,
@@ -55,10 +61,11 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionAr: descriptionAr ?? this.descriptionAr,
       isRead: isRead ?? this.isRead,
       dateTime: dateTime ?? this.dateTime,
+      visitid: visitid ?? this.visitid,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'titleEn': titleEn,
@@ -67,8 +74,14 @@ class AppNotification extends HiveObject with EquatableMixin {
       'descriptionAr': descriptionAr,
       'isRead': isRead,
       'dateTime': dateTime,
+      'visitid': visitid,
     };
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory AppNotification.fromJson(String source) =>
+      AppNotification.fromMap(json.decode(source) as Map<String, dynamic>);
 
   factory AppNotification.test() {
     return AppNotification(
@@ -84,7 +97,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     );
   }
 
-  factory AppNotification.fromJson(Map<String, dynamic> map) {
+  factory AppNotification.fromMap(Map<String, dynamic> map) {
     return AppNotification(
       id: map['id'] as String,
       titleEn: map['titleEn'] as String,
@@ -93,6 +106,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionAr: map['descriptionAr'] as String,
       isRead: map['isRead'] as bool,
       dateTime: map["dateTime"] as String,
+      visitid: map['visitid'],
     );
   }
 
@@ -100,7 +114,7 @@ class AppNotification extends HiveObject with EquatableMixin {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       titleEn,
@@ -109,6 +123,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionAr,
       isRead,
       dateTime,
+      visitid,
     ];
   }
 
@@ -168,6 +183,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionAr: message.descriptionAr,
       isRead: false,
       dateTime: DateTime.now().toIso8601String(),
+      visitid: message.visitid,
     );
   }
 }

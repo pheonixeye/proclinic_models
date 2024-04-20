@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:proclinic_models/src/models/visit/visitModel.dart';
+import 'package:proclinic_models/src/models/visit/visit_model.dart';
 import 'package:proclinic_models/src/utils/format_time.dart';
 import 'package:proclinic_models/src/utils/object_id.dart';
 

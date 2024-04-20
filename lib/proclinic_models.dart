@@ -22,7 +22,7 @@ export 'src/models/prescribed_drug/prescribed_drug.dart';
 export 'src/models/remaining_fees/remaining_fees.dart';
 export 'src/models/supply_item/supply_item.dart';
 export 'src/models/translatable/translatable.dart';
-export 'src/models/visit/visitModel.dart';
+export 'src/models/visit/visit_model.dart';
 export 'src/models/visit_data/visit_data.dart';
 export 'src/models/visit_supply_item/visit_supply_item.dart';
 export 'src/models/speciality/speciality.dart';

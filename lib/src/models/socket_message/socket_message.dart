@@ -17,6 +17,7 @@ class SocketNotificationMessage extends Equatable {
   final String descriptionEn;
   final String descriptionAr;
   final int docid;
+  final String? visitid;
 
   const SocketNotificationMessage({
     required this.id,
@@ -27,6 +28,7 @@ class SocketNotificationMessage extends Equatable {
     required this.descriptionEn,
     required this.descriptionAr,
     required this.docid,
+    this.visitid,
   });
 
   SocketNotificationMessage copyWith({
@@ -38,6 +40,7 @@ class SocketNotificationMessage extends Equatable {
     String? descriptionEn,
     String? descriptionAr,
     int? docid,
+    String? visitid,
   }) {
     return SocketNotificationMessage(
       id: id ?? this.id,
@@ -48,6 +51,7 @@ class SocketNotificationMessage extends Equatable {
       descriptionEn: descriptionEn ?? this.descriptionEn,
       descriptionAr: descriptionAr ?? this.descriptionAr,
       docid: docid ?? this.docid,
+      visitid: visitid ?? this.visitid,
     );
   }
 
@@ -61,6 +65,7 @@ class SocketNotificationMessage extends Equatable {
       'descriptionEn': descriptionEn,
       'descriptionAr': descriptionAr,
       'docid': docid,
+      'visitid': visitid,
     };
   }
 
@@ -74,6 +79,7 @@ class SocketNotificationMessage extends Equatable {
       descriptionEn: map['descriptionEn'] as String,
       descriptionAr: map['descriptionAr'] as String,
       docid: map['docid'] as int,
+      visitid: map['visitid'] as String?,
     );
   }
 
@@ -87,7 +93,7 @@ class SocketNotificationMessage extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       direction,
@@ -96,6 +102,7 @@ class SocketNotificationMessage extends Equatable {
       titleAr,
       descriptionEn,
       descriptionAr,
+      visitid,
     ];
   }
 
@@ -124,7 +131,11 @@ class SocketNotificationMessage extends Equatable {
     );
   }
 
-  factory SocketNotificationMessage.newVisit(int docid, Tr tr) {
+  factory SocketNotificationMessage.newVisit(
+    int docid,
+    Tr tr,
+    String visitid,
+  ) {
     return SocketNotificationMessage(
       id: const Uuid().v4(),
       direction: MessageDirection.receptionToDoctor,
@@ -134,10 +145,15 @@ class SocketNotificationMessage extends Equatable {
       descriptionEn: "The Reception Has Added a New Visit.",
       descriptionAr: "تم اضافة زيارة جديدة",
       docid: docid,
+      visitid: visitid,
     );
   }
 
-  factory SocketNotificationMessage.visitUpdatedreception(int docid, Tr tr) {
+  factory SocketNotificationMessage.visitUpdatedreception(
+    int docid,
+    Tr tr,
+    String visitid,
+  ) {
     return SocketNotificationMessage(
       id: const Uuid().v4(),
       direction: MessageDirection.receptionToDoctor,
@@ -147,10 +163,15 @@ class SocketNotificationMessage extends Equatable {
       descriptionEn: "The Reception Has Updated a Visit.",
       descriptionAr: "تم تعديل بيانات زيارة بواسطة السكيرتارية",
       docid: docid,
+      visitid: visitid,
     );
   }
 
-  factory SocketNotificationMessage.visitUpdatedDoctor(int docid, Tr tr) {
+  factory SocketNotificationMessage.visitUpdatedDoctor(
+    int docid,
+    Tr tr,
+    String visitid,
+  ) {
     return SocketNotificationMessage(
       id: const Uuid().v4(),
       direction: MessageDirection.doctorToReception,
@@ -160,6 +181,7 @@ class SocketNotificationMessage extends Equatable {
       descriptionEn: "Dr. ${tr.e} has updated visit details.",
       descriptionAr: "تم تعديل بيانات زيارة بواسطة دكتور ${tr.a}",
       docid: docid,
+      visitid: visitid,
     );
   }
 
