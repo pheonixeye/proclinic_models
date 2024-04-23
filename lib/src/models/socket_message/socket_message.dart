@@ -85,9 +85,10 @@ class SocketNotificationMessage extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory SocketNotificationMessage.fromJson(String source) =>
-      SocketNotificationMessage.fromMap(
-          json.decode(source) as Map<String, dynamic>);
+  factory SocketNotificationMessage.fromJson(String source) {
+    print(source);
+    return SocketNotificationMessage.fromMap(json.decode(source));
+  }
 
   @override
   bool get stringify => true;
@@ -114,7 +115,7 @@ class SocketNotificationMessage extends Equatable {
       titleEn: "Dr. ${tr.e} Clinic.",
       titleAr: "عيادة دكتور ${tr.a}",
       descriptionEn: "Doctor ${tr.e} has logged in.",
-      descriptionAr: "قام الدكتور ${tr.a} بالولوج",
+      descriptionAr: "قام الدكتور ${tr.a} بالدخول",
       docid: docid,
     );
   }

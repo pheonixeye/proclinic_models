@@ -80,8 +80,10 @@ class AppNotification extends HiveObject with EquatableMixin {
 
   String toJson() => json.encode(toMap());
 
-  factory AppNotification.fromJson(String source) =>
-      AppNotification.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory AppNotification.fromJson(String source) {
+    print(source);
+    return AppNotification.fromMap(json.decode(source) as Map<String, dynamic>);
+  }
 
   factory AppNotification.test() {
     return AppNotification(
