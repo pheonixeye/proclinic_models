@@ -15,11 +15,11 @@ class VisitData extends Equatable {
   final List<String> labs;
   final List<String> rads;
   final List<PrescribedDrug> drugs;
-  final List<String> sheetpapers;
-  final List<String> labpapers;
-  final List<String> radpapers;
-  final List<String> drugpapers;
-  final List<String> commentspapers;
+  final List<ObjectId> sheetpapers;
+  final List<ObjectId> labpapers;
+  final List<ObjectId> radpapers;
+  final List<ObjectId> drugpapers;
+  final List<ObjectId> commentspapers;
 
   const VisitData({
     required this.docid,
@@ -53,11 +53,11 @@ class VisitData extends Equatable {
       drugs: (json[SxVD.DRUGS] as List<dynamic>)
           .map((e) => PrescribedDrug.fromJson(e))
           .toList(),
-      sheetpapers: stringifyList(json[SxVD.SHEETSPAPERS]),
-      labpapers: stringifyList(json[SxVD.LABSPAPERS]),
-      radpapers: stringifyList(json[SxVD.RADSPAPERS]),
-      drugpapers: stringifyList(json[SxVD.DRUGPAPERS]),
-      commentspapers: stringifyList(json[SxVD.COMMENTSPAPERS]),
+      sheetpapers: objectIdFromDynamic(json[SxVD.SHEETSPAPERS]),
+      labpapers: objectIdFromDynamic(json[SxVD.LABSPAPERS]),
+      radpapers: objectIdFromDynamic(json[SxVD.RADSPAPERS]),
+      drugpapers: objectIdFromDynamic(json[SxVD.DRUGPAPERS]),
+      commentspapers: objectIdFromDynamic(json[SxVD.COMMENTSPAPERS]),
     );
   }
 
@@ -108,6 +108,10 @@ class VisitData extends Equatable {
 
   static List<String> stringifyList(List<dynamic> ld) {
     return ld.map((dynamic e) => e.toString()).toList();
+  }
+
+  static List<ObjectId> objectIdFromDynamic(List<dynamic> list) {
+    return list.map((e) => e as ObjectId).toList();
   }
 
   static const Map<String, String> paperData = {
