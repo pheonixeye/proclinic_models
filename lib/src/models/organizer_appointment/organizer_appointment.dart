@@ -1,8 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:equatable/equatable.dart';
+import 'package:proclinic_models/src/utils/object_id.dart';
 
 class OrgAppointement extends Equatable {
+  final ObjectId id;
   final String ptname;
   final String phone;
   final String docnameEN;
@@ -14,6 +16,7 @@ class OrgAppointement extends Equatable {
   final int docid;
 
   const OrgAppointement({
+    required this.id,
     required this.ptname,
     required this.phone,
     required this.docnameEN,
@@ -26,7 +29,8 @@ class OrgAppointement extends Equatable {
   });
 
   factory OrgAppointement.initial() {
-    return const OrgAppointement(
+    return OrgAppointement(
+      id: ObjectId(),
       ptname: '',
       phone: '',
       docnameEN: '',
@@ -42,6 +46,7 @@ class OrgAppointement extends Equatable {
   DateTime get d => DateTime.parse(dateTime);
 
   OrgAppointement copyWith({
+    ObjectId? id,
     String? ptname,
     String? phone,
     String? docnameEN,
@@ -53,6 +58,7 @@ class OrgAppointement extends Equatable {
     int? docid,
   }) {
     return OrgAppointement(
+      id: id ?? this.id,
       ptname: ptname ?? this.ptname,
       phone: phone ?? this.phone,
       docnameEN: docnameEN ?? this.docnameEN,
@@ -67,6 +73,7 @@ class OrgAppointement extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+      '_id': id,
       'ptname': ptname,
       'phone': phone,
       'docnameEN': docnameEN,
@@ -81,6 +88,7 @@ class OrgAppointement extends Equatable {
 
   factory OrgAppointement.fromJson(Map<String, dynamic> map) {
     return OrgAppointement(
+      id: map['_id'] as ObjectId,
       ptname: map['ptname'] as String,
       phone: map['phone'] as String,
       docnameEN: map['docnameEN'] as String,
@@ -99,6 +107,7 @@ class OrgAppointement extends Equatable {
   @override
   List<Object> get props {
     return [
+      id,
       ptname,
       phone,
       docnameEN,
@@ -110,15 +119,4 @@ class OrgAppointement extends Equatable {
       docid,
     ];
   }
-}
-
-class SxOrgApp {
-  static const String PTNAME = 'ptname';
-  static const String PHONE = 'phone';
-  static const String DOCNAMEEN = 'docname_en';
-  static const String DOCNAMEAR = 'docname_ar';
-  static const String CLINICEN = 'clinic_en';
-  static const String CLINICAR = 'clinic_ar';
-  static const String DATETIME = 'datetime';
-  static const String DOCID = 'docid';
 }
