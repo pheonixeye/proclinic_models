@@ -31,6 +31,8 @@ class AppNotification extends HiveObject with EquatableMixin {
   final String dateTime;
   @HiveField(8)
   final String? visitid;
+  @HiveField(9)
+  final String? messageType;
 
   AppNotification({
     required this.id,
@@ -41,6 +43,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     required this.isRead,
     required this.dateTime,
     this.visitid,
+    this.messageType,
   });
 
   AppNotification copyWith({
@@ -52,6 +55,7 @@ class AppNotification extends HiveObject with EquatableMixin {
     bool? isRead,
     String? dateTime,
     String? visitid,
+    String? messageType,
   }) {
     return AppNotification(
       id: id ?? this.id,
@@ -62,6 +66,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       isRead: isRead ?? this.isRead,
       dateTime: dateTime ?? this.dateTime,
       visitid: visitid ?? this.visitid,
+      messageType: messageType ?? this.messageType,
     );
   }
 
@@ -75,6 +80,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       'isRead': isRead,
       'dateTime': dateTime,
       'visitid': visitid,
+      'messageType': messageType,
     };
   }
 
@@ -108,7 +114,8 @@ class AppNotification extends HiveObject with EquatableMixin {
       descriptionAr: map['descriptionAr'] as String,
       isRead: map['isRead'] as bool,
       dateTime: map["dateTime"] as String,
-      visitid: map['visitid'],
+      visitid: map['visitid'] as String?,
+      messageType: map['messageType'] as String?,
     );
   }
 
@@ -126,6 +133,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       isRead,
       dateTime,
       visitid,
+      messageType,
     ];
   }
 
@@ -186,6 +194,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       isRead: false,
       dateTime: DateTime.now().toIso8601String(),
       visitid: message.visitid,
+      messageType: message.type.toString(),
     );
   }
 }

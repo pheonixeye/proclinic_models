@@ -8,6 +8,7 @@ enum MessageType implements EquatableMixin {
   callSecretary,
   pauseClinic,
   resumeClinic,
+  setFollowUpDate,
   visitUpdatedDoctor,
   visitUpdatedreception;
 
@@ -20,6 +21,7 @@ enum MessageType implements EquatableMixin {
       "callSecretary" => MessageType.callSecretary,
       "pauseClinic" => MessageType.pauseClinic,
       "resumeClinic" => MessageType.resumeClinic,
+      "setFollowUpDate" => MessageType.setFollowUpDate,
       "visitUpdatedDoctor" => MessageType.visitUpdatedDoctor,
       "visitUpdatedreception" => MessageType.visitUpdatedreception,
       _ => throw UnimplementedError(),
@@ -35,6 +37,7 @@ enum MessageType implements EquatableMixin {
         callSecretary,
         pauseClinic,
         resumeClinic,
+        setFollowUpDate,
         visitUpdatedDoctor,
         visitUpdatedreception,
       ];

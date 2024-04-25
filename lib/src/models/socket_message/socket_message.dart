@@ -211,6 +211,25 @@ class SocketNotificationMessage extends Equatable {
       docid: docid,
     );
   }
+
+  factory SocketNotificationMessage.setFollowUpDate(
+    int docid,
+    Tr tr,
+    String visitid,
+  ) {
+    return SocketNotificationMessage(
+      id: const Uuid().v4(),
+      direction: MessageDirection.doctorToReception,
+      type: MessageType.setFollowUpDate,
+      titleEn: "Dr. ${tr.e} Clinic.",
+      titleAr: "عيادة دكتور ${tr.a}",
+      descriptionEn: "Dr. ${tr.e} has Set Follow Up Date For a visit.",
+      descriptionAr: "تم تحديد موعد الاستشارة بواسطة دكتور ${tr.a}",
+      docid: docid,
+      visitid: visitid,
+    );
+  }
+
   factory SocketNotificationMessage.callSecretary(int docid, Tr tr) {
     return SocketNotificationMessage(
       id: const Uuid().v4(),
