@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 enum AppPermission implements Equatable {
-  admin,
-  accounts,
   newVisit,
   updateVisit,
   deleteVisit,
@@ -12,13 +10,14 @@ enum AppPermission implements Equatable {
   patientDatabase,
   newDoctor,
   newSpeciality,
+  accounts,
+  expenses,
   bookKeeping,
   inventory,
   contracts;
 
   factory AppPermission.fromString(String value) {
     return switch (value) {
-      'admin' => admin,
       'accounts' => accounts,
       'newVisit' => newVisit,
       'updateVisit' => updateVisit,
@@ -31,6 +30,7 @@ enum AppPermission implements Equatable {
       'newSpeciality' => newSpeciality,
       'bookKeeping' => bookKeeping,
       'inventory' => inventory,
+      'expenses' => expenses,
       'contracts' => contracts,
       _ => throw UnimplementedError(),
     };
@@ -38,12 +38,11 @@ enum AppPermission implements Equatable {
 
   @override
   String toString() {
-    return name.split(".")[1];
+    return name.split(".").last;
   }
 
   @override
   List<Object> get props => [
-        admin,
         accounts,
         newVisit,
         updateVisit,
@@ -55,10 +54,34 @@ enum AppPermission implements Equatable {
         newDoctor,
         newSpeciality,
         bookKeeping,
+        expenses,
         inventory,
         contracts
       ];
 
   @override
   bool get stringify => true;
+
+  String tr(bool isEnglish) {
+    if (isEnglish) {
+      return toString();
+    } else {
+      return switch (this) {
+        AppPermission.newVisit => "اضافة زيارة جديدة",
+        AppPermission.updateVisit => "تعديل بيانات زيارة",
+        AppPermission.deleteVisit => "الغاء بيانات زيارة",
+        AppPermission.appOrganizer => "ترتيب المواعيد",
+        AppPermission.deleteNotification => "الغاء تنبيه",
+        AppPermission.deleteNotifications => "الغاء كل التنبيهات",
+        AppPermission.patientDatabase => "قاعدة بيانات المرضي",
+        AppPermission.newDoctor => "اضافة ملف طبيب جديد",
+        AppPermission.newSpeciality => "اضافة تخصص طبي جديد",
+        AppPermission.accounts => "حسابات السكيرتارية",
+        AppPermission.expenses => "المصاريف",
+        AppPermission.bookKeeping => "الحسابات",
+        AppPermission.inventory => "المخزن",
+        AppPermission.contracts => "العقود",
+      };
+    }
+  }
 }

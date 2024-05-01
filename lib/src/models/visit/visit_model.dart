@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/src/models/contracts/contract_model.dart';
 import 'package:proclinic_models/src/models/doctor/affiliate/affiliate_model.dart';

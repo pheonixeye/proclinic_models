@@ -168,6 +168,7 @@ class AppNotification extends HiveObject with EquatableMixin {
       case TaskType.remainingFees:
         //todo: scheduled to run once the app opens
 
+        // ignore: no_leading_underscores_for_local_identifiers
         final RemainingFees _data = data as RemainingFees;
         return AppNotification(
           id: const Uuid().v4(),

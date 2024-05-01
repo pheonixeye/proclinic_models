@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/src/models/app_permission/app_permissions.dart';
 import 'package:proclinic_models/src/utils/object_id.dart';
@@ -72,7 +74,6 @@ class Account extends Equatable {
       id,
       name,
       password,
-      lastLogin,
       canChangePassword,
       permissions,
     ];
@@ -89,6 +90,21 @@ class Account extends Equatable {
       lastLogin: DateTime.now().toIso8601String(),
       canChangePassword: false,
       permissions: [],
+    );
+  }
+
+  static const String adminAccount = "adminaccount";
+  static String get hex =>
+      utf8.encode(adminAccount).map((e) => e.toRadixString(16)).join();
+
+  factory Account.admin() {
+    return Account(
+      id: ObjectId.fromHexString(hex),
+      name: 'admin',
+      password: 'admin',
+      lastLogin: DateTime.now().toIso8601String(),
+      canChangePassword: true,
+      permissions: AppPermission.values,
     );
   }
 
