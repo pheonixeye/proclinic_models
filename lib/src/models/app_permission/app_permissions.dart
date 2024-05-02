@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 enum AppPermission implements Equatable {
   newVisit,
+  todayVisits,
   updateVisit,
   deleteVisit,
   appOrganizer,
@@ -14,12 +15,15 @@ enum AppPermission implements Equatable {
   expenses,
   bookKeeping,
   inventory,
-  contracts;
+  contracts,
+  settings,
+  noRequiredPermission;
 
   factory AppPermission.fromString(String value) {
     return switch (value) {
       'accounts' => accounts,
       'newVisit' => newVisit,
+      'todayVisits' => todayVisits,
       'updateVisit' => updateVisit,
       'deleteVisit' => deleteVisit,
       'appOrganizer' => appOrganizer,
@@ -32,6 +36,8 @@ enum AppPermission implements Equatable {
       'inventory' => inventory,
       'expenses' => expenses,
       'contracts' => contracts,
+      'settings' => settings,
+      'noRequiredPermission' => noRequiredPermission,
       _ => throw UnimplementedError(),
     };
   }
@@ -45,6 +51,7 @@ enum AppPermission implements Equatable {
   List<Object> get props => [
         accounts,
         newVisit,
+        todayVisits,
         updateVisit,
         deleteVisit,
         appOrganizer,
@@ -56,7 +63,9 @@ enum AppPermission implements Equatable {
         bookKeeping,
         expenses,
         inventory,
-        contracts
+        contracts,
+        settings,
+        noRequiredPermission,
       ];
 
   @override
@@ -67,6 +76,7 @@ enum AppPermission implements Equatable {
       return toString();
     } else {
       return switch (this) {
+        AppPermission.todayVisits => "زيارات اليوم",
         AppPermission.newVisit => "اضافة زيارة جديدة",
         AppPermission.updateVisit => "تعديل بيانات زيارة",
         AppPermission.deleteVisit => "الغاء بيانات زيارة",
@@ -81,6 +91,8 @@ enum AppPermission implements Equatable {
         AppPermission.bookKeeping => "الحسابات",
         AppPermission.inventory => "المخزن",
         AppPermission.contracts => "العقود",
+        AppPermission.settings => "الاعدادات",
+        AppPermission.noRequiredPermission => "صلاحية غير مطلوبة",
       };
     }
   }
