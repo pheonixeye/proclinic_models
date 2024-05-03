@@ -89,7 +89,7 @@ class Account extends Equatable {
       password: password,
       lastLogin: DateTime.now().toIso8601String(),
       canChangePassword: false,
-      permissions: [],
+      permissions: [AppPermission.settings],
     );
   }
 

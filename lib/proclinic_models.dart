@@ -31,4 +31,6 @@ export 'src/models/bookkeeping_analysis/keeping_analysis.dart';
 export 'src/models/socket_message/socket_message.dart';
 export 'src/models/account/account.dart';
 export 'src/models/app_permission/app_permissions.dart';
+export 'src/models/expense_item/expense_item.dart';
+export 'src/models/scheduled_expense/scheduled_expense.dart';
 export 'src/utils/object_id.dart';
