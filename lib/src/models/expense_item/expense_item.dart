@@ -4,6 +4,8 @@ import 'package:proclinic_models/src/utils/object_id.dart';
 
 class ExpenseItem extends Equatable {
   final ObjectId id;
+  final ObjectId accountId;
+  final ObjectId categoryId;
   final String titleEn;
   final String titleAr;
   final String? descriptionEn;
@@ -15,6 +17,8 @@ class ExpenseItem extends Equatable {
 
   const ExpenseItem({
     required this.id,
+    required this.accountId,
+    required this.categoryId,
     required this.titleEn,
     required this.titleAr,
     required this.descriptionEn,
@@ -27,6 +31,8 @@ class ExpenseItem extends Equatable {
 
   ExpenseItem copyWith({
     ObjectId? id,
+    ObjectId? accountId,
+    ObjectId? categoryId,
     String? titleEn,
     String? titleAr,
     String? descriptionEn,
@@ -38,6 +44,8 @@ class ExpenseItem extends Equatable {
   }) {
     return ExpenseItem(
       id: id ?? this.id,
+      accountId: accountId ?? this.accountId,
+      categoryId: categoryId ?? this.categoryId,
       titleEn: titleEn ?? this.titleEn,
       titleAr: titleAr ?? this.titleAr,
       descriptionEn: descriptionEn ?? this.descriptionEn,
@@ -52,6 +60,8 @@ class ExpenseItem extends Equatable {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       '_id': id,
+      'accountId': accountId,
+      'categoryId': categoryId,
       'titleEn': titleEn,
       'titleAr': titleAr,
       'descriptionEn': descriptionEn,
@@ -66,6 +76,8 @@ class ExpenseItem extends Equatable {
   factory ExpenseItem.fromJson(Map<String, dynamic> map) {
     return ExpenseItem(
       id: map['_id'] as ObjectId,
+      accountId: map['accountId'] as ObjectId,
+      categoryId: map['categoryId'] as ObjectId,
       titleEn: map['titleEn'] as String,
       titleAr: map['titleAr'] as String,
       descriptionEn: map['descriptionEn'] as String?,
@@ -82,11 +94,15 @@ class ExpenseItem extends Equatable {
     required String titleEn,
     required double value,
     required String dateTime,
+    required ObjectId accountId,
+    required ObjectId categoryId,
     String? descriptionEn,
     String? descriptionAr,
   }) {
     return ExpenseItem(
       id: ObjectId(),
+      accountId: accountId,
+      categoryId: categoryId,
       titleEn: titleEn,
       titleAr: titleAr,
       descriptionEn: descriptionEn,
@@ -101,6 +117,8 @@ class ExpenseItem extends Equatable {
   factory ExpenseItem.fromScheduledExpense(ScheduledExpense se) {
     return ExpenseItem(
       id: ObjectId(),
+      accountId: se.accountId,
+      categoryId: se.categoryId,
       titleEn: se.titleEn,
       titleAr: se.titleAr,
       descriptionEn: se.descriptionEn,
@@ -119,6 +137,8 @@ class ExpenseItem extends Equatable {
   List<Object?> get props {
     return [
       id,
+      accountId,
+      categoryId,
       titleEn,
       titleAr,
       descriptionEn,
