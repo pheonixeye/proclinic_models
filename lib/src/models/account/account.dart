@@ -10,6 +10,7 @@ class Account extends Equatable {
   final String password;
   final String lastLogin;
   final bool canChangePassword;
+  final bool isActive;
   final List<AppPermission> permissions;
 
   const Account({
@@ -19,6 +20,7 @@ class Account extends Equatable {
     required this.lastLogin,
     required this.canChangePassword,
     required this.permissions,
+    required this.isActive,
   });
 
   Account copyWith({
@@ -27,6 +29,7 @@ class Account extends Equatable {
     String? password,
     String? lastLogin,
     bool? canChangePassword,
+    bool? isActive,
     List<AppPermission>? permissions,
   }) {
     return Account(
@@ -35,6 +38,7 @@ class Account extends Equatable {
       password: password ?? this.password,
       lastLogin: lastLogin ?? this.lastLogin,
       canChangePassword: canChangePassword ?? this.canChangePassword,
+      isActive: isActive ?? this.isActive,
       permissions: permissions ?? this.permissions,
     );
   }
@@ -46,6 +50,7 @@ class Account extends Equatable {
       'password': password,
       'lastLogin': lastLogin,
       'canChangePassword': canChangePassword,
+      'isActive': isActive,
       'permissions': permissions.map((x) => x.toString()).toList(),
     };
   }
@@ -57,6 +62,7 @@ class Account extends Equatable {
       password: map['password'] as String,
       lastLogin: map['lastLogin'] as String,
       canChangePassword: map['canChangePassword'] as bool,
+      isActive: map['isActive'] as bool,
       permissions: List<AppPermission>.from(
         (map['permissions'] as List<dynamic>).map<AppPermission>(
           (x) => AppPermission.fromString(x),
@@ -75,6 +81,7 @@ class Account extends Equatable {
       name,
       password,
       canChangePassword,
+      isActive,
       permissions,
     ];
   }
@@ -89,6 +96,7 @@ class Account extends Equatable {
       password: password,
       lastLogin: DateTime.now().toIso8601String(),
       canChangePassword: false,
+      isActive: true,
       permissions: [AppPermission.settings],
     );
   }
@@ -104,6 +112,7 @@ class Account extends Equatable {
       password: 'admin',
       lastLogin: DateTime.now().toIso8601String(),
       canChangePassword: true,
+      isActive: true,
       permissions: AppPermission.values,
     );
   }

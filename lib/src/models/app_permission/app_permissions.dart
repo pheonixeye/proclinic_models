@@ -13,7 +13,7 @@ enum AppPermission implements Equatable {
   newSpeciality,
   accounts,
   createAccount,
-  deleteAccount,
+  changeAccountActivity,
   updateAccountPermissions,
   expenses,
   createExpense,
@@ -29,7 +29,7 @@ enum AppPermission implements Equatable {
     return switch (value) {
       'accounts' => accounts,
       'createAccount' => createAccount,
-      'deleteAccount' => deleteAccount,
+      'changeAccountActivity' => changeAccountActivity,
       'updateAccountPermissions' => updateAccountPermissions,
       'newVisit' => newVisit,
       'todayVisits' => todayVisits,
@@ -63,7 +63,7 @@ enum AppPermission implements Equatable {
   List<Object> get props => [
         AppPermission.accounts,
         AppPermission.createAccount,
-        AppPermission.deleteAccount,
+        AppPermission.changeAccountActivity,
         AppPermission.updateAccountPermissions,
         AppPermission.newVisit,
         AppPermission.todayVisits,
@@ -106,7 +106,7 @@ enum AppPermission implements Equatable {
         AppPermission.newSpeciality => "اضافة تخصص طبي جديد",
         AppPermission.accounts => "حسابات السكيرتارية",
         AppPermission.createAccount => "انشاء حساب سكيرتارية",
-        AppPermission.deleteAccount => "الغاء حساب سكيرتارية",
+        AppPermission.changeAccountActivity => "تفعيل / وقف حساب سكيرتارية",
         AppPermission.updateAccountPermissions =>
           "تعديل صلاحيات حساب سكيرتارية",
         AppPermission.expenses => "المصاريف",
