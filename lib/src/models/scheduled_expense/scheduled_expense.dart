@@ -140,7 +140,7 @@ class ScheduledExpense extends Equatable {
       descriptionEn: item.descriptionEn,
       descriptionAr: item.descriptionAr,
       recurring: recurring,
-      dateTime: dateTime ?? item.dateTime,
+      dateTime: dateTime ?? item.createdAt,
       value: value ?? item.value,
       notificationTime: notificationTime,
       nMonth: nMonth,

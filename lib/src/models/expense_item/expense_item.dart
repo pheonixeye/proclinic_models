@@ -10,7 +10,7 @@ class ExpenseItem extends Equatable {
   final String titleAr;
   final String? descriptionEn;
   final String? descriptionAr;
-  final String dateTime;
+  final String createdAt;
   final double value;
   final bool isPaid;
   final ObjectId? recieptFile;
@@ -23,7 +23,7 @@ class ExpenseItem extends Equatable {
     required this.titleAr,
     required this.descriptionEn,
     required this.descriptionAr,
-    required this.dateTime,
+    required this.createdAt,
     required this.isPaid,
     required this.value,
     required this.recieptFile,
@@ -37,7 +37,7 @@ class ExpenseItem extends Equatable {
     String? titleAr,
     String? descriptionEn,
     String? descriptionAr,
-    String? dateTime,
+    String? createdAt,
     double? value,
     bool? isPaid,
     ObjectId? recieptFile,
@@ -50,7 +50,7 @@ class ExpenseItem extends Equatable {
       titleAr: titleAr ?? this.titleAr,
       descriptionEn: descriptionEn ?? this.descriptionEn,
       descriptionAr: descriptionAr ?? this.descriptionAr,
-      dateTime: dateTime ?? this.dateTime,
+      createdAt: createdAt ?? this.createdAt,
       value: value ?? this.value,
       isPaid: isPaid ?? this.isPaid,
       recieptFile: recieptFile ?? this.recieptFile,
@@ -66,7 +66,7 @@ class ExpenseItem extends Equatable {
       'titleAr': titleAr,
       'descriptionEn': descriptionEn,
       'descriptionAr': descriptionAr,
-      'dateTime': dateTime,
+      'createdAt': createdAt,
       'value': value,
       'isPaid': isPaid,
       'recieptFile': recieptFile,
@@ -82,7 +82,7 @@ class ExpenseItem extends Equatable {
       titleAr: map['titleAr'] as String,
       descriptionEn: map['descriptionEn'] as String?,
       descriptionAr: map['descriptionAr'] as String?,
-      dateTime: map['dateTime'] as String,
+      createdAt: map['createdAt'] as String,
       value: map['value'] as double,
       isPaid: map['isPaid'] as bool,
       recieptFile: map['recieptFile'] as ObjectId?,
@@ -93,7 +93,6 @@ class ExpenseItem extends Equatable {
     required String titleAr,
     required String titleEn,
     required double value,
-    required String dateTime,
     required ObjectId accountId,
     required ObjectId categoryId,
     String? descriptionEn,
@@ -107,7 +106,7 @@ class ExpenseItem extends Equatable {
       titleAr: titleAr,
       descriptionEn: descriptionEn,
       descriptionAr: descriptionAr,
-      dateTime: dateTime,
+      createdAt: DateTime.now().toIso8601String(),
       isPaid: false,
       value: value,
       recieptFile: null,
@@ -123,7 +122,7 @@ class ExpenseItem extends Equatable {
       titleAr: se.titleAr,
       descriptionEn: se.descriptionEn,
       descriptionAr: se.descriptionAr,
-      dateTime: se.dateTime,
+      createdAt: se.dateTime,
       isPaid: false,
       value: se.value,
       recieptFile: null,
@@ -143,7 +142,7 @@ class ExpenseItem extends Equatable {
       titleAr,
       descriptionEn,
       descriptionAr,
-      dateTime,
+      createdAt,
       value,
       isPaid,
       recieptFile,

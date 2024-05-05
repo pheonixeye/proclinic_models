@@ -8,6 +8,9 @@ class ExpenseCategory extends Equatable {
   final String titleAr;
   final String? descriptionEn;
   final String? descriptionAr;
+  final bool isActive;
+  final bool isPublished;
+  final String createdAt;
 
   const ExpenseCategory({
     required this.id,
@@ -16,6 +19,9 @@ class ExpenseCategory extends Equatable {
     required this.titleAr,
     this.descriptionEn,
     this.descriptionAr,
+    required this.isActive,
+    required this.isPublished,
+    required this.createdAt,
   });
 
   ExpenseCategory copyWith({
@@ -25,6 +31,9 @@ class ExpenseCategory extends Equatable {
     String? titleAr,
     String? descriptionEn,
     String? descriptionAr,
+    bool? isActive,
+    bool? isPublished,
+    String? createdAt,
   }) {
     return ExpenseCategory(
       id: id ?? this.id,
@@ -33,6 +42,9 @@ class ExpenseCategory extends Equatable {
       titleAr: titleAr ?? this.titleAr,
       descriptionEn: descriptionEn ?? this.descriptionEn,
       descriptionAr: descriptionAr ?? this.descriptionAr,
+      isActive: isActive ?? this.isActive,
+      isPublished: isPublished ?? this.isPublished,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -44,12 +56,15 @@ class ExpenseCategory extends Equatable {
       'titleAr': titleAr,
       'descriptionEn': descriptionEn,
       'descriptionAr': descriptionAr,
+      'isActive': isActive,
+      'isPublished': isPublished,
+      'createdAt': createdAt
     };
   }
 
   factory ExpenseCategory.fromJson(Map<String, dynamic> map) {
     return ExpenseCategory(
-      id: map['id'] as ObjectId,
+      id: map['_id'] as ObjectId,
       accountId: map['accountId'] as ObjectId,
       titleEn: map['titleEn'] as String,
       titleAr: map['titleAr'] as String,
@@ -57,6 +72,29 @@ class ExpenseCategory extends Equatable {
           map['descriptionEn'] != null ? map['descriptionEn'] as String : null,
       descriptionAr:
           map['descriptionAr'] != null ? map['descriptionAr'] as String : null,
+      isActive: map['isActive'] as bool,
+      isPublished: map['isPublished'] as bool,
+      createdAt: map['createdAt'] as String,
+    );
+  }
+
+  factory ExpenseCategory.create({
+    required ObjectId accountId,
+    required String titleEn,
+    required String titleAr,
+    String? descriptionEn,
+    String? descriptionAr,
+  }) {
+    return ExpenseCategory(
+      id: ObjectId(),
+      accountId: accountId,
+      titleEn: titleEn,
+      titleAr: titleAr,
+      descriptionEn: descriptionEn,
+      descriptionAr: descriptionAr,
+      isActive: true,
+      isPublished: true,
+      createdAt: DateTime.now().toIso8601String(),
     );
   }
 
@@ -72,6 +110,9 @@ class ExpenseCategory extends Equatable {
       titleAr,
       descriptionEn,
       descriptionAr,
+      isActive,
+      isPublished,
+      createdAt,
     ];
   }
 }
