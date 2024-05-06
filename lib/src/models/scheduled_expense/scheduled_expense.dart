@@ -13,11 +13,8 @@ class ScheduledExpense extends Equatable {
   final bool recurring;
   final String dateTime;
   final double value;
-  final String? notificationTime;
-  final int? nMonth;
-  final int? nDay;
-  final int? nHour;
-  final int? nMinute;
+  final String notificationTime;
+  final RecurringRate rate;
 
   const ScheduledExpense({
     required this.id,
@@ -31,18 +28,8 @@ class ScheduledExpense extends Equatable {
     required this.dateTime,
     required this.value,
     required this.notificationTime,
-    required this.nMonth,
-    required this.nDay,
-    required this.nHour,
-    required this.nMinute,
-  }) : assert(
-          recurring
-              ? (nDay != null &&
-                  nMonth != null &&
-                  nHour != null &&
-                  nMinute != null)
-              : notificationTime != null,
-        );
+    required this.rate,
+  });
 
   ScheduledExpense copyWith({
     ObjectId? id,
@@ -56,10 +43,7 @@ class ScheduledExpense extends Equatable {
     String? notificationTime,
     String? dateTime,
     double? value,
-    int? nMonth,
-    int? nDay,
-    int? nHour,
-    int? nMinute,
+    RecurringRate? rate,
   }) {
     return ScheduledExpense(
       id: id ?? this.id,
@@ -73,10 +57,7 @@ class ScheduledExpense extends Equatable {
       dateTime: dateTime ?? this.dateTime,
       value: value ?? this.value,
       notificationTime: notificationTime ?? this.notificationTime,
-      nMonth: nMonth ?? this.nMonth,
-      nDay: nDay ?? this.nDay,
-      nHour: nHour ?? this.nHour,
-      nMinute: nMinute ?? this.nMinute,
+      rate: rate ?? this.rate,
     );
   }
 
@@ -93,10 +74,7 @@ class ScheduledExpense extends Equatable {
       'notificationTime': notificationTime,
       'dateTime': dateTime,
       'value': value,
-      'nMonth': nMonth,
-      'nDay': nDay,
-      'nHour': nHour,
-      'nMinute': nMinute,
+      'rate': rate.toString(),
     };
   }
 
@@ -113,23 +91,17 @@ class ScheduledExpense extends Equatable {
       notificationTime: map['notificationTime'] as String,
       dateTime: map['dateTime'] as String,
       value: map['value'] as double,
-      nMonth: map['nMonth'] as int,
-      nDay: map['nDay'] as int,
-      nHour: map['nHour'] as int,
-      nMinute: map['nMinute'] as int,
+      rate: RecurringRate.fromString(map['rate'] as String),
     );
   }
 
   factory ScheduledExpense.fromExpenseItem({
     required ExpenseItem item,
     required bool recurring,
-    String? dateTime,
-    String? notificationTime,
+    required String notificationTime,
+    required RecurringRate rate,
+    required String dateTime,
     double? value,
-    int? nMonth,
-    int? nDay,
-    int? nHour,
-    int? nMinute,
   }) {
     return ScheduledExpense(
       id: ObjectId(),
@@ -140,13 +112,10 @@ class ScheduledExpense extends Equatable {
       descriptionEn: item.descriptionEn,
       descriptionAr: item.descriptionAr,
       recurring: recurring,
-      dateTime: dateTime ?? item.createdAt,
+      dateTime: dateTime,
       value: value ?? item.value,
       notificationTime: notificationTime,
-      nMonth: nMonth,
-      nDay: nDay,
-      nHour: nHour,
-      nMinute: nMinute,
+      rate: rate,
     );
   }
 
@@ -165,12 +134,43 @@ class ScheduledExpense extends Equatable {
       descriptionAr,
       recurring,
       notificationTime,
-      nMonth,
-      nDay,
-      nHour,
-      nMinute,
+      rate,
       dateTime,
       value,
     ];
+  }
+}
+
+enum RecurringRate {
+  monthly,
+  weekly,
+  daily;
+
+  @override
+  String toString() {
+    return name.split(".").last;
+  }
+
+  const RecurringRate();
+
+  factory RecurringRate.fromString(String value) {
+    return switch (value) {
+      'monthly' => RecurringRate.monthly,
+      'weekly' => RecurringRate.weekly,
+      'daily' => RecurringRate.daily,
+      _ => throw UnimplementedError(),
+    };
+  }
+
+  String tr(bool isEnglish) {
+    if (isEnglish) {
+      return toString();
+    } else {
+      return switch (this) {
+        RecurringRate.monthly => 'شهري',
+        RecurringRate.weekly => 'اسبوعي',
+        RecurringRate.daily => 'يومي',
+      };
+    }
   }
 }
