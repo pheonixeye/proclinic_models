@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/src/models/scheduled_expense/scheduled_expense.dart';
+import 'package:proclinic_models/src/models/translatable/translatable.dart';
 import 'package:proclinic_models/src/utils/object_id.dart';
 
 class ExpenseItem extends Equatable {
@@ -127,6 +128,51 @@ class ExpenseItem extends Equatable {
       value: se.value,
       recieptFile: null,
     );
+  }
+
+  Map<String, Tr> forWidgets() {
+    return {
+      'accountId': Tr(
+        e: 'Account',
+        a: 'الحساب',
+      ),
+      'categoryId': Tr(
+        e: 'Expense Category',
+        a: 'حساب المصروفات',
+      ),
+      'titleEn': Tr(
+        e: "English Title",
+        a: "الاسم الانجليزي",
+      ),
+      'titleAr': Tr(
+        e: 'Arabic Title',
+        a: 'الاسم العربي',
+      ),
+      'descriptionEn': Tr(
+        e: 'English Description',
+        a: 'الوصف الانجليزي',
+      ),
+      'descriptionAr': Tr(
+        e: 'Arabic Description',
+        a: 'الوصف العربي',
+      ),
+      'createdAt': Tr(
+        e: 'Date & Time',
+        a: 'التاريخ',
+      ),
+      'value': Tr(
+        e: 'Value / Amount',
+        a: 'القيمة / التكلفة',
+      ),
+      'isPaid': Tr(
+        e: 'Status',
+        a: 'الحالة',
+      ),
+      'recieptFile': Tr(
+        e: 'Has Attached Reciept',
+        a: 'مرفق ايصال',
+      ),
+    };
   }
 
   @override
