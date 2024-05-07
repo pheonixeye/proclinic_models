@@ -4,11 +4,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:proclinic_models/src/models/cron/task_type.dart';
-import 'package:proclinic_models/src/models/organizer_appointment/organizer_appointment.dart';
-import 'package:proclinic_models/src/models/remaining_fees/remaining_fees.dart';
-import 'package:proclinic_models/src/models/socket_message/socket_message.dart';
-import 'package:proclinic_models/src/models/supply_item/supply_item.dart';
+import 'package:proclinic_models/proclinic_models.dart';
+import 'package:proclinic_models/src/utils/format_time.dart';
 import 'package:uuid/uuid.dart';
 
 part './type_adapter.dart';
@@ -146,9 +143,9 @@ class AppNotification extends HiveObject with EquatableMixin {
           titleEn: app.clinicEN.toUpperCase(),
           titleAr: app.clinicAR.toUpperCase(),
           descriptionEn:
-              "One Hour Remains till Mr. ${app.ptname} Appointment with Dr. ${app.docnameEN} - Mobile: ${app.phone}",
+              "One Hour Remains till Mr. (${app.ptname}) Appointment with Dr. (${app.docnameEN}) - Mobile: (${app.phone})",
           descriptionAr:
-              'باقي ساعة علي موعد ${app.ptname} مع دكتور ${app.docnameAR} - الموبايل : ${app.phone}',
+              'باقي ساعة علي موعد (${app.ptname}) مع دكتور (${app.docnameAR}) - الموبايل : (${app.phone})',
           isRead: false,
           dateTime: DateTime.now().toIso8601String(),
         );
@@ -158,16 +155,21 @@ class AppNotification extends HiveObject with EquatableMixin {
           id: const Uuid().v4(),
           titleEn: item.nameEn,
           titleAr: item.nameAr,
-          descriptionEn:
-              "This is an automated Supplies Notification. Remaining Amount of ${item.nameEn} is ${item.amount} Units Only.",
-          descriptionAr:
-              'باقي في المخزن الخاص ب${item.nameAr} عدد ${item.amount} فقط.',
+          descriptionEn: """
+This is an automated Supplies Notification.
+The Remaining Amount of (${item.nameEn}) is (${item.amount}) Units Only.
+The Lower Limit is (${item.notifyAmount}) Units.
+""",
+          descriptionAr: '''
+اشعار مراجعة المخزن.
+باقي في المخزن الخاص ب(${item.nameAr}) عدد (${item.amount}) فقط.
+كمية التنبيه هي : (${item.notifyAmount}) وحدة
+''',
           isRead: false,
           dateTime: DateTime.now().toIso8601String(),
         );
-      case TaskType.remainingFees:
-        //todo: scheduled to run once the app opens
 
+      case TaskType.remainingFees:
         // ignore: no_leading_underscores_for_local_identifiers
         final RemainingFees _data = data as RemainingFees;
         return AppNotification(
@@ -179,8 +181,51 @@ class AppNotification extends HiveObject with EquatableMixin {
           isRead: false,
           dateTime: DateTime.now().toIso8601String(),
         );
+      case TaskType.scheduledExpense:
+        // ignore: no_leading_underscores_for_local_identifiers
+        final ScheduledExpense _data = data as ScheduledExpense;
+        // ignore: no_leading_underscores_for_local_identifiers
+        final _nextNotificationDate = switch (_data.rate) {
+          RecurringRate.daily => DateTime.parse(_data.notificationTime)
+              .add(const Duration(hours: 24))
+              .toIso8601String(),
+          RecurringRate.weekly => DateTime.parse(_data.notificationTime)
+              .add(const Duration(hours: 168))
+              .toIso8601String(),
+          RecurringRate.monthly => DateTime.parse(_data.notificationTime)
+              .add(const Duration(hours: 720))
+              .toIso8601String(),
+        };
+        return AppNotification(
+          id: const Uuid().v4(),
+          titleEn: 'A Scheduled Expense Is Due (${_data.titleEn})',
+          titleAr: 'موعد سداد مصروفات مستحقة ' '(${_data.titleAr})',
+          descriptionEn: '''
+Is Due At : (${formatDateWithoutTime(_data.dateTime)}),
+Value / Amount : ${_data.value} L.E.
+${_data.recurring ? "Is Recurring," : "One Time Only,"}
+${_data.recurring ? "Reccuring Every : ${_data.rate.tr(true)}" : ""},
+Next Notification Date : ${_data.recurring ? formatDateWithoutTime(_nextNotificationDate) : '-'}''',
+          descriptionAr: ''' 
+تاريخ الاستحقاق : (${formatDateWithoutTime(_data.dateTime)}),
+القيمة : ${_data.value} جنيه
+${_data.recurring ? "متكرر," : "مرة واحدة,"}
+${_data.recurring ? "معدل التكرار : ${_data.rate.tr(false)}" : ""},
+تاريخ التنبيه القادم : ${_data.recurring ? formatDateWithoutTime(_nextNotificationDate) : '-'}
+''',
+          isRead: false,
+          dateTime: DateTime.now().toIso8601String(),
+        );
       case TaskType.others:
-        return throw UnimplementedError();
+        return AppNotification(
+          id: const Uuid().v4(),
+          titleEn: "UnCategorized Notification.",
+          titleAr: 'تنبيه متنوع',
+          descriptionEn: data.toString(),
+          descriptionAr: data.toString(),
+          isRead: false,
+          dateTime: DateTime.now().toIso8601String(),
+        );
     }
   }
 

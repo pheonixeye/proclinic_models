@@ -49,7 +49,7 @@ class RemainingFees extends Equatable {
   String toString() {
     return visitsThatHasRemaining.entries
         .map((e) {
-          return "${e.value.ptName} - ${formatDateWithoutTime(e.value.visitDate)} ==>> ${e.value.remaining}";
+          return "${e.value.ptName}:\n(${formatDateWithoutTime(e.value.visitDate)}) ==>> (${e.value.remaining})";
         })
         .toList()
         .join("\n");

@@ -80,7 +80,7 @@ class ScheduledExpense extends Equatable {
 
   factory ScheduledExpense.fromJson(Map<String, dynamic> map) {
     return ScheduledExpense(
-      id: map['id'] as ObjectId,
+      id: map['_id'] as ObjectId,
       accountId: map['accountId'] as ObjectId,
       categoryId: map['categoryId'] as ObjectId,
       titleEn: map['titleEn'] as String,
@@ -152,6 +152,22 @@ enum RecurringRate {
   }
 
   const RecurringRate();
+
+  String newDate(String dateTime) {
+    DateTime d = DateTime.parse(dateTime);
+    switch (this) {
+      case RecurringRate.monthly:
+        d.add(const Duration(hours: 720));
+        break;
+      case RecurringRate.weekly:
+        d.add(const Duration(hours: 168));
+        break;
+      case RecurringRate.daily:
+        d.add(const Duration(hours: 24));
+        break;
+    }
+    return d.toIso8601String();
+  }
 
   factory RecurringRate.fromString(String value) {
     return switch (value) {

@@ -130,6 +130,26 @@ class ExpenseItem extends Equatable {
     );
   }
 
+  factory ExpenseItem.fromScheduledExpenseWithNewTimeAndValue({
+    required ScheduledExpense se,
+    required String? dateTime,
+    required double? value,
+  }) {
+    return ExpenseItem(
+      id: ObjectId(),
+      accountId: se.accountId,
+      categoryId: se.categoryId,
+      titleEn: se.titleEn,
+      titleAr: se.titleAr,
+      descriptionEn: se.descriptionEn,
+      descriptionAr: se.descriptionAr,
+      createdAt: dateTime ?? se.dateTime,
+      isPaid: false,
+      value: value ?? se.value,
+      recieptFile: null,
+    );
+  }
+
   Map<String, Tr> forWidgets() {
     return {
       'accountId': Tr(
