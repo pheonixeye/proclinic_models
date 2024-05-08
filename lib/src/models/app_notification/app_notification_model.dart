@@ -155,11 +155,11 @@ class AppNotification extends HiveObject with EquatableMixin {
           id: const Uuid().v4(),
           titleEn: item.nameEn,
           titleAr: item.nameAr,
-          descriptionEn: """
+          descriptionEn: '''
 This is an automated Supplies Notification.
 The Remaining Amount of (${item.nameEn}) is (${item.amount}) Units Only.
 The Lower Limit is (${item.notifyAmount}) Units.
-""",
+''',
           descriptionAr: '''
 اشعار مراجعة المخزن.
 باقي في المخزن الخاص ب(${item.nameAr}) عدد (${item.amount}) فقط.
@@ -182,20 +182,14 @@ The Lower Limit is (${item.notifyAmount}) Units.
           dateTime: DateTime.now().toIso8601String(),
         );
       case TaskType.scheduledExpense:
+
         // ignore: no_leading_underscores_for_local_identifiers
         final ScheduledExpense _data = data as ScheduledExpense;
+
         // ignore: no_leading_underscores_for_local_identifiers
-        final _nextNotificationDate = switch (_data.rate) {
-          RecurringRate.daily => DateTime.parse(_data.notificationTime)
-              .add(const Duration(hours: 24))
-              .toIso8601String(),
-          RecurringRate.weekly => DateTime.parse(_data.notificationTime)
-              .add(const Duration(hours: 168))
-              .toIso8601String(),
-          RecurringRate.monthly => DateTime.parse(_data.notificationTime)
-              .add(const Duration(hours: 720))
-              .toIso8601String(),
-        };
+        final _nextNotificationDate =
+            _data.rate.newDate(_data.notificationTime);
+
         return AppNotification(
           id: const Uuid().v4(),
           titleEn: 'A Scheduled Expense Is Due (${_data.titleEn})',

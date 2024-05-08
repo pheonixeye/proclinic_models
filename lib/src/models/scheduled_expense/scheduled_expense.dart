@@ -157,13 +157,13 @@ enum RecurringRate {
     DateTime d = DateTime.parse(dateTime);
     switch (this) {
       case RecurringRate.monthly:
-        d.add(const Duration(hours: 720));
+        d = d.add(const Duration(hours: 720));
         break;
       case RecurringRate.weekly:
-        d.add(const Duration(hours: 168));
+        d = d.add(const Duration(hours: 168));
         break;
       case RecurringRate.daily:
-        d.add(const Duration(hours: 24));
+        d = d.add(const Duration(hours: 24));
         break;
     }
     return d.toIso8601String();
