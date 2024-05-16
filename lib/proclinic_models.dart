@@ -34,4 +34,5 @@ export 'src/models/app_permission/app_permissions.dart';
 export 'src/models/expense_item/expense_item.dart';
 export 'src/models/scheduled_expense/scheduled_expense.dart';
 export 'src/models/expense_category/expense_category.dart';
+export 'src/models/prescription_settings/prescription_settings.dart';
 export 'src/utils/object_id.dart';
