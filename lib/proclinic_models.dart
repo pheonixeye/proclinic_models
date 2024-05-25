@@ -15,7 +15,7 @@ export 'src/models/document/documentModel.dart';
 export 'src/models/dosage/dosage_forms.dart';
 export 'src/models/drug/drug_model.dart';
 export 'src/models/frequencies/frequencies_model.dart';
-export 'src/models/medical_form/medical_form_model.dart';
+export 'src/models/proclinic_form/proclinic_form_model.dart';
 export 'src/models/organizer_appointment/organizer_appointment.dart';
 export 'src/models/patient/patient_model.dart';
 export 'src/models/prescribed_drug/prescribed_drug.dart';
