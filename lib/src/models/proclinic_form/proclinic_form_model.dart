@@ -49,6 +49,28 @@ class ProClinicForm extends Equatable {
     );
   }
 
+  factory ProClinicForm.create({
+    required String titleEn,
+    required String titleAr,
+    required double length,
+    required double width,
+    required FormLayout formLayout,
+    String? descriptionEn,
+    String? descriptionAr,
+  }) {
+    return ProClinicForm(
+      id: ObjectId(),
+      titleEn: titleEn,
+      titleAr: titleAr,
+      descriptionEn: descriptionEn,
+      descriptionAr: descriptionAr,
+      length: length,
+      width: width,
+      formLayout: formLayout,
+      elements: [],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       '_id': id,
@@ -76,7 +98,7 @@ class ProClinicForm extends Equatable {
       width: map['width'] as double,
       formLayout: FormLayout.fromString(map['formLayout'] as String),
       elements: List<FormDataElement>.from(
-        (map['elements'] as List<Map<String, dynamic>>)
+        (map['elements'] as List<dynamic>)
             .map<FormDataElement>((x) => FormDataElement.fromJson(x)),
       ),
     );
@@ -107,11 +129,12 @@ class FormDataElement extends Equatable {
   final String? description;
   final FormElement formElement;
   final bool required;
-  final int startX;
-  final int startY;
-  final int spanX;
-  final int spanY;
+  final double startX;
+  final double startY;
+  final double spanX;
+  final double spanY;
   final List<FormElementDataOption> options;
+  final ObjectId? image;
 
   const FormDataElement({
     required this.id,
@@ -124,6 +147,7 @@ class FormDataElement extends Equatable {
     required this.spanX,
     required this.spanY,
     required this.options,
+    this.image,
   });
 
   FormDataElement copyWith({
@@ -132,11 +156,12 @@ class FormDataElement extends Equatable {
     String? description,
     FormElement? formElement,
     bool? required,
-    int? startX,
-    int? startY,
-    int? spanX,
-    int? spanY,
+    double? startX,
+    double? startY,
+    double? spanX,
+    double? spanY,
     List<FormElementDataOption>? options,
+    ObjectId? image,
   }) {
     return FormDataElement(
       id: id ?? this.id,
@@ -149,6 +174,7 @@ class FormDataElement extends Equatable {
       spanX: spanX ?? this.spanX,
       spanY: spanY ?? this.spanY,
       options: options ?? this.options,
+      image: image ?? this.image,
     );
   }
 
@@ -164,7 +190,32 @@ class FormDataElement extends Equatable {
       'spanX': spanX,
       'spanY': spanY,
       'options': options.map((x) => x.toJson()).toList(),
+      'image': image,
     };
+  }
+
+  factory FormDataElement.create({
+    required String title,
+    String? description,
+    required FormElement formElement,
+    required double startX,
+    required double startY,
+    double spanX = 250,
+    double spanY = 100,
+  }) {
+    return FormDataElement(
+      id: ObjectId(),
+      title: title,
+      description: description,
+      formElement: formElement,
+      required: false,
+      startX: startX,
+      startY: startY,
+      spanX: spanX,
+      spanY: spanY,
+      options: const [],
+      image: null,
+    );
   }
 
   factory FormDataElement.fromJson(Map<String, dynamic> map) {
@@ -175,16 +226,17 @@ class FormDataElement extends Equatable {
           map['description'] != null ? map['description'] as String : null,
       formElement: FormElement.fromString(map['formElement'] as String),
       required: map['required'] as bool,
-      startX: map['startX'] as int,
-      startY: map['startY'] as int,
-      spanX: map['spanX'] as int,
-      spanY: map['spanY'] as int,
+      startX: map['startX'] as double,
+      startY: map['startY'] as double,
+      spanX: map['spanX'] as double,
+      spanY: map['spanY'] as double,
       options: List<FormElementDataOption>.from(
         (map['options'] as List<Map<String, dynamic>>)
             .map<FormElementDataOption>(
           (x) => FormElementDataOption.fromJson(x),
         ),
       ),
+      image: map['image'] as ObjectId,
     );
   }
 
@@ -204,6 +256,7 @@ class FormDataElement extends Equatable {
       spanX,
       spanY,
       options,
+      image,
     ];
   }
 }
@@ -265,7 +318,9 @@ enum FormElement {
   textfield,
   checkbox,
   radio,
-  dropdown;
+  dropdown,
+  image,
+  text;
 
   const FormElement();
 
@@ -275,6 +330,7 @@ enum FormElement {
       'checkbox' => FormElement.checkbox,
       'radio' => FormElement.radio,
       'dropdown' => FormElement.dropdown,
+      'text' => FormElement.text,
       _ => throw UnimplementedError(),
     };
   }
@@ -306,6 +362,15 @@ enum FormLayout {
       _ => throw UnimplementedError(),
     };
   }
+
+  int get columns => switch (this) {
+        FormLayout.oneColumn => 1,
+        FormLayout.twoColumn => 2,
+        FormLayout.threeColumn => 3,
+        FormLayout.fourColumn => 4,
+        FormLayout.fiveColumn => 5,
+        FormLayout.sixColumn => 6,
+      };
   @override
   String toString() {
     return name.split('.').last;
