@@ -126,6 +126,7 @@ class ProClinicForm extends Equatable {
 class FormDataElement extends Equatable {
   final ObjectId id;
   final String title;
+  final int page;
   final String? description;
   final FormElement formElement;
   final bool required;
@@ -139,6 +140,7 @@ class FormDataElement extends Equatable {
   const FormDataElement({
     required this.id,
     required this.title,
+    required this.page,
     this.description,
     required this.formElement,
     required this.required,
@@ -154,6 +156,7 @@ class FormDataElement extends Equatable {
     ObjectId? id,
     String? title,
     String? description,
+    int? page,
     FormElement? formElement,
     bool? required,
     double? startX,
@@ -166,6 +169,7 @@ class FormDataElement extends Equatable {
     return FormDataElement(
       id: id ?? this.id,
       title: title ?? this.title,
+      page: page ?? this.page,
       description: description ?? this.description,
       formElement: formElement ?? this.formElement,
       required: required ?? this.required,
@@ -182,6 +186,7 @@ class FormDataElement extends Equatable {
     return <String, dynamic>{
       '_id': id,
       'title': title,
+      'page': page,
       'description': description,
       'formElement': formElement.toString(),
       'required': required,
@@ -196,6 +201,7 @@ class FormDataElement extends Equatable {
 
   factory FormDataElement.create({
     required String title,
+    required int page,
     String? description,
     required FormElement formElement,
     required double startX,
@@ -206,6 +212,7 @@ class FormDataElement extends Equatable {
     return FormDataElement(
       id: ObjectId(),
       title: title,
+      page: page,
       description: description,
       formElement: formElement,
       required: false,
@@ -222,6 +229,7 @@ class FormDataElement extends Equatable {
     return FormDataElement(
       id: map['_id'] as ObjectId,
       title: map['title'] as String,
+      page: map['page'] as int,
       description:
           map['description'] != null ? map['description'] as String : null,
       formElement: FormElement.fromString(map['formElement'] as String),
@@ -231,12 +239,11 @@ class FormDataElement extends Equatable {
       spanX: map['spanX'] as double,
       spanY: map['spanY'] as double,
       options: List<FormElementDataOption>.from(
-        (map['options'] as List<Map<String, dynamic>>)
-            .map<FormElementDataOption>(
+        (map['options'] as List<dynamic>).map<FormElementDataOption>(
           (x) => FormElementDataOption.fromJson(x),
         ),
       ),
-      image: map['image'] as ObjectId,
+      image: map['image'] as ObjectId?,
     );
   }
 
@@ -248,6 +255,7 @@ class FormDataElement extends Equatable {
     return [
       id,
       title,
+      page,
       description,
       formElement,
       required,
@@ -331,6 +339,7 @@ enum FormElement {
       'radio' => FormElement.radio,
       'dropdown' => FormElement.dropdown,
       'text' => FormElement.text,
+      'image' => FormElement.image,
       _ => throw UnimplementedError(),
     };
   }
