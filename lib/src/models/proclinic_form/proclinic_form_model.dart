@@ -296,6 +296,15 @@ class FormElementDataOption extends Equatable {
     );
   }
 
+  factory FormElementDataOption.createEmpty() {
+    return FormElementDataOption(
+      id: ObjectId(),
+      description: null,
+      title: '',
+      value: '',
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       '_id': id,
