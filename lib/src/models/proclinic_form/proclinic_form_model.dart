@@ -334,7 +334,6 @@ class FormElementDataOption extends Equatable {
 enum FormElement {
   textfield,
   checkbox,
-  radio,
   dropdown,
   image,
   text;
@@ -345,7 +344,6 @@ enum FormElement {
     return switch (value) {
       'textfield' => FormElement.textfield,
       'checkbox' => FormElement.checkbox,
-      'radio' => FormElement.radio,
       'dropdown' => FormElement.dropdown,
       'text' => FormElement.text,
       'image' => FormElement.image,
