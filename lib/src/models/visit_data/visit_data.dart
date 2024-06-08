@@ -20,6 +20,8 @@ class VisitData extends Equatable {
   final List<ObjectId> radpapers;
   final List<ObjectId> drugpapers;
   final List<ObjectId> commentspapers;
+  final ObjectId? formId;
+  final Map<String, dynamic>? formdata;
 
   const VisitData({
     required this.docid,
@@ -37,6 +39,8 @@ class VisitData extends Equatable {
     required this.radpapers,
     required this.drugpapers,
     required this.commentspapers,
+    this.formId,
+    this.formdata,
   });
 
   factory VisitData.fromJson(dynamic json) {
@@ -58,6 +62,8 @@ class VisitData extends Equatable {
       radpapers: objectIdFromDynamic(json[SxVD.RADSPAPERS]),
       drugpapers: objectIdFromDynamic(json[SxVD.DRUGPAPERS]),
       commentspapers: objectIdFromDynamic(json[SxVD.COMMENTSPAPERS]),
+      formId: json[SxVD.FORMID] as ObjectId?,
+      formdata: json[SxVD.FORMDATA] as Map<String, dynamic>?,
     );
   }
 
@@ -78,6 +84,8 @@ class VisitData extends Equatable {
       radpapers: const [],
       drugpapers: const [],
       commentspapers: const [],
+      formId: null,
+      formdata: null,
     );
   }
 
@@ -98,6 +106,8 @@ class VisitData extends Equatable {
       SxVD.RADSPAPERS: radpapers,
       SxVD.DRUGPAPERS: drugpapers,
       SxVD.COMMENTSPAPERS: commentspapers,
+      SxVD.FORMID: formId,
+      SxVD.FORMDATA: formdata,
     };
   }
 
@@ -123,7 +133,7 @@ class VisitData extends Equatable {
   };
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       docid,
       visitid,
@@ -140,6 +150,8 @@ class VisitData extends Equatable {
       radpapers,
       drugpapers,
       commentspapers,
+      formId,
+      formdata,
     ];
   }
 }
@@ -160,4 +172,6 @@ class SxVD {
   static const String RADSPAPERS = "radpapers";
   static const String DRUGPAPERS = "drugpapers";
   static const String COMMENTSPAPERS = "commentpapers";
+  static const String FORMID = "formid";
+  static const String FORMDATA = "formdata";
 }

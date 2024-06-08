@@ -104,6 +104,11 @@ class ProClinicForm extends Equatable {
     );
   }
 
+  Map<String, dynamic> _formState() =>
+      Map.fromEntries(elements.map((e) => MapEntry(e.title, null)));
+
+  Map<String, dynamic> get formState => _formState();
+
   @override
   bool get stringify => true;
 
@@ -119,6 +124,7 @@ class ProClinicForm extends Equatable {
       width,
       formLayout,
       elements,
+      formState,
     ];
   }
 }
