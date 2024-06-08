@@ -28,6 +28,8 @@ class Visit extends Equatable {
   final List<VisitSupplyItem> supplies;
   final Contract contract;
   final String? ptInsuranceNumber;
+  final ObjectId? formid;
+  final Map<String, dynamic>? formdata;
 
   Visit({
     ObjectId? id,
@@ -49,6 +51,8 @@ class Visit extends Equatable {
     required this.supplies,
     required this.contract,
     required this.ptInsuranceNumber,
+    this.formid,
+    this.formdata,
   }) : id = id ?? ObjectId();
 
   factory Visit.fromJson(Map<String, dynamic> json) {
@@ -76,6 +80,8 @@ class Visit extends Equatable {
           .toList(),
       contract: Contract.fromJson(json[SxVisit.CONTRACT]),
       ptInsuranceNumber: json[SxVisit.PTINSURANCENUMBER] as String?,
+      formid: json[SxVisit.FORMID] as ObjectId?,
+      formdata: json[SxVisit.FORMDATA] as Map<String, dynamic>?,
     );
   }
   Map<String, dynamic> toJson() {
@@ -99,6 +105,8 @@ class Visit extends Equatable {
       SxVisit.SUPPLIES: supplies.map((e) => e.toJson()).toList(),
       SxVisit.CONTRACT: contract.toJson(),
       SxVisit.PTINSURANCENUMBER: ptInsuranceNumber,
+      SxVisit.FORMID: formid,
+      SxVisit.FORMDATA: formdata,
     };
   }
 
@@ -148,6 +156,8 @@ class Visit extends Equatable {
     List<VisitSupplyItem>? supplies,
     Contract? contract,
     String? ptInsuranceNumber,
+    ObjectId? formid,
+    Map<String, dynamic>? formdata,
   }) {
     return Visit(
       id: id ?? this.id,
@@ -171,6 +181,8 @@ class Visit extends Equatable {
           ? contract!.contractFromAmount(amount!.toDouble())
           : contract ?? this.contract,
       ptInsuranceNumber: ptInsuranceNumber ?? this.ptInsuranceNumber,
+      formid: formid ?? this.formid,
+      formdata: formdata ?? this.formdata,
     );
   }
 
@@ -195,6 +207,8 @@ class Visit extends Equatable {
       supplies: const [],
       contract: Contract.noContract(),
       ptInsuranceNumber: '',
+      formid: null,
+      formdata: null,
     );
 
     //todo: add validate visit method
@@ -295,6 +309,8 @@ class Visit extends Equatable {
       supplies,
       contract,
       ptInsuranceNumber,
+      formid,
+      formdata,
     ];
   }
 }
@@ -319,4 +335,6 @@ class SxVisit {
   static const String SUPPLIES = "supplies";
   static const String CONTRACT = "contract";
   static const String PTINSURANCENUMBER = "ptInsuranceNumber";
+  static const String FORMID = "formid";
+  static const String FORMDATA = "formdata";
 }
