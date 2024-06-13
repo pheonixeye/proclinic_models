@@ -3,8 +3,9 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/proclinic_models.dart';
+import 'package:proclinic_models/src/models/form_holder/form_holder.dart';
 
-class VisitData extends Equatable {
+class VisitData extends FormHolder with EquatableMixin {
   final int docid;
   final ObjectId visitid;
   final String ptname;
@@ -20,8 +21,6 @@ class VisitData extends Equatable {
   final List<ObjectId> radpapers;
   final List<ObjectId> drugpapers;
   final List<ObjectId> commentspapers;
-  final ObjectId? formId;
-  final Map<String, dynamic>? formdata;
 
   const VisitData({
     required this.docid,
@@ -39,8 +38,8 @@ class VisitData extends Equatable {
     required this.radpapers,
     required this.drugpapers,
     required this.commentspapers,
-    this.formId,
-    this.formdata,
+    super.formId,
+    super.formData,
   });
 
   factory VisitData.fromJson(dynamic json) {
@@ -63,7 +62,7 @@ class VisitData extends Equatable {
       drugpapers: objectIdFromDynamic(json[SxVD.DRUGPAPERS]),
       commentspapers: objectIdFromDynamic(json[SxVD.COMMENTSPAPERS]),
       formId: json[SxVD.FORMID] as ObjectId?,
-      formdata: json[SxVD.FORMDATA] as Map<String, dynamic>?,
+      formData: json[SxVD.FORMDATA] as Map<String, dynamic>?,
     );
   }
 
@@ -85,7 +84,7 @@ class VisitData extends Equatable {
       drugpapers: const [],
       commentspapers: const [],
       formId: null,
-      formdata: null,
+      formData: null,
     );
   }
 
@@ -107,7 +106,7 @@ class VisitData extends Equatable {
       SxVD.DRUGPAPERS: drugpapers,
       SxVD.COMMENTSPAPERS: commentspapers,
       SxVD.FORMID: formId,
-      SxVD.FORMDATA: formdata,
+      SxVD.FORMDATA: formData,
     };
   }
 
@@ -151,7 +150,7 @@ class VisitData extends Equatable {
       drugpapers,
       commentspapers,
       formId,
-      formdata,
+      formData,
     ];
   }
 }
