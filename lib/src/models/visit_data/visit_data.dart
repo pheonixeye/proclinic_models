@@ -3,7 +3,6 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:proclinic_models/proclinic_models.dart';
-import 'package:proclinic_models/src/models/form_holder/form_holder.dart';
 
 class VisitData extends FormHolder with EquatableMixin {
   final int docid;
