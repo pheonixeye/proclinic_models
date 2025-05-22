@@ -11,6 +11,7 @@ import 'package:uuid/uuid.dart';
 part './type_adapter.dart';
 
 @HiveType(typeId: 0)
+// ignore: must_be_immutable
 class AppNotification extends HiveObject with EquatableMixin {
   @HiveField(1)
   final String id;
@@ -200,7 +201,7 @@ Value / Amount : ${_data.value} L.E.
 ${_data.recurring ? "Is Recurring," : "One Time Only,"}
 ${_data.recurring ? "Reccuring Every : ${_data.rate.tr(true)}" : ""},
 Next Notification Date : ${_data.recurring ? formatDateWithoutTime(_nextNotificationDate) : '-'}''',
-          descriptionAr: ''' 
+          descriptionAr: '''
 تاريخ الاستحقاق : (${formatDateWithoutTime(_data.dateTime)}),
 القيمة : ${_data.value} جنيه
 ${_data.recurring ? "متكرر," : "مرة واحدة,"}

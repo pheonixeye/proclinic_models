@@ -36,4 +36,5 @@ export 'src/models/scheduled_expense/scheduled_expense.dart';
 export 'src/models/expense_category/expense_category.dart';
 export 'src/models/prescription_settings/prescription_settings.dart';
 export 'src/models/form_holder/form_holder.dart';
+export 'src/models/db_type_id/db_type_id.dart';
 export 'src/utils/object_id.dart';
